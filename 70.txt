@@ -1,0 +1,17 @@
+public class Solution {
+    public int climbStairs(int n) {
+    if(n == 0 || n == 1 || n == 2){return n;}
+    int[] mem = new int[n];
+    mem[0] = 1;
+    mem[1] = 2;
+    for(int i = 2; i < n; i++){
+        mem[i] = mem[i-1] + mem[i-2];
+    }
+    return mem[n-1];
+}
+}
+
+此题应用动态规划，要定义一个数组来存储中间结果
+此题用斐波那契数列样式的递归函数做会导致超出时间限制，必须要用动态规划做（存储中间结果的方法）
+
+主方法中如何实现读取用户输入的数字

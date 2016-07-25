@@ -1,0 +1,8 @@
+public class Solution {
+    public boolean isPowerOfTwo(int n) {
+        if (n <= 0) return false;
+        else return (n&(n-1))==0;
+    }
+}
+
+如果是2 的power的话，那么bit只有一个1，剩下全是0.所以用&做一个与就可以了，注意0&1 = 0， 1 & 1 = 1

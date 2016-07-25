@@ -1,0 +1,35 @@
+/**
+ * Definition for binary tree
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+public class Solution {
+    public List<List<Integer>> levelOrderBottom(TreeNode root) {
+        List<List<Integer>> result = new ArrayList<>();
+        List<List<Integer>> finallist = new ArrayList<>();
+        List<TreeNode>level = new ArrayList<>();
+        level.add(root);
+        while(true){
+            if(level.isEmpty() || level.get(0) == null)break;
+            List<Integer>current = new ArrayList<>();
+            List<TreeNode>nextlevel = new ArrayList<>();
+            for(TreeNode node:level){
+                current.add(node.val);
+                if(node.left!=null)nextlevel.add(node.left);
+                if(node.right!=null)nextlevel.add(node.right);
+                }
+            result.add(current);
+            level=nextlevel;
+        }
+        for(int i = result.size()-1;i>=0;i--){
+            finallist.add(result.get(i));
+        }
+        return finallist;
+    }
+}
+
+此题与102题几乎一致，只需将最后的result结果倒序。

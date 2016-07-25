@@ -1,0 +1,13 @@
+public class Solution {
+    public int trailingZeroes(int n) {
+        int value = 0;
+        while(n>1){
+        	value=value+n/5;
+        	n=n/5;
+        }
+        return value;
+    }
+}
+
+此题求的是一个阶乘数的最后几位的连续0的个数（Factorial trailing zeros）
+辗转相除5即可得到，此题为一个数学技巧。

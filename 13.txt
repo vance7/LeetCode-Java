@@ -1,0 +1,24 @@
+import java.util.HashMap;
+public class Solution {
+    private int arab = 0; 
+	public int romanToInt(String s) {
+	        HashMap  m = new HashMap ();  
+	        m.put('I', 1);
+	        m.put('V', 5);
+	        m.put('X', 10);
+	        m.put('L', 50);
+	        m.put('C', 100);
+	        m.put('D', 500);
+	        m.put('M', 1000);
+	        for(int i = 0;i<s.length();i++){
+	        	if (i+1<s.length()&&(int)m.get(s.charAt(i))<(int)m.get(s.charAt(i+1)))
+	        		arab = arab-(int)m.get(s.charAt(i));
+	        	else
+	        		arab = arab+(int)m.get(s.charAt(i));
+	        }
+	        return arab;
+	    }
+}
+
+1.注意HashMap的定义
+2.m根据key值取出的value要记得前置转换成int型再进行比较

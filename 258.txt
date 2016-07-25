@@ -1,0 +1,37 @@
+public class Solution {
+    public int addDigits(int num) {
+        ArrayList<Integer> digit = diGit(num);
+        int sum = toSum(digit);
+        if(diGit(sum).size()>1){
+        	while(diGit(sum).size()>1)
+        		sum = toSum(diGit(sum));
+        	return sum;
+        }        
+        return sum;
+    }
+    public ArrayList diGit(int num){
+    	ArrayList digitlist = new ArrayList();
+    	while(num !=0){
+    		int j = num%10;
+    		num = num/10;
+    		digitlist.add(j);
+    	}
+    	return digitlist;
+    }
+    public int toSum(ArrayList<Integer> array){
+    	int sum = 0;
+    	for(int i = 0;i<array.size();i++)
+    		sum+=array.get(i);
+    	return sum;
+    }
+}
+第一种解法为6ms。思路是将每位存在一个动态数组中，求和，判断，输出。包含两个自定义的函数，一个负责分解每位并存储，另一个将该数组中每位求和。这里有一个小技巧，一个常见问题：如何取一个Int数的每一位。这里用了一个辗转相除。但其实这个解法是不符合要求的，虽然时间比较短（利用空间解决时间，相比较于递归），但是还是用到了loop。
+
+public class Solution {
+    public int addDigits(int num) {
+       return (num<10)?num:((num-10)%9)+1;
+    }
+}
+这个解法非常吊，只有一行，且没有loop，时间2ms................
+这个问题是一个“Digital root”的问题，见wiki：https://en.wikipedia.org/wiki/Digital_root
+

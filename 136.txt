@@ -1,0 +1,13 @@
+public class Solution {
+    public int singleNumber(int[] A) {
+        int result = 0; 
+        for (int i : A) result ^= i ; 
+        return result ; 
+     }
+}
+
+
+太牛逼了，只用了三行代码就解决。 注意两点：
+1.for (int i : A) result ^= i ; 这是jdk5之后新增的一种遍历数组的方式。例如：
+   for(int i :A)	System.out.print(i);
+2.java中的亦或运算‘^’ ：（二进制按位运算）相同输出0，不同输出1 。此题运用两个异或的特点（1）自己与自己异或结果为0（2）异或满足交换律。  注意数字0与任何数字异或都是数字本身。

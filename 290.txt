@@ -1,0 +1,23 @@
+public class Solution {
+    public boolean wordPattern(String pattern, String str) {
+        HashMap hm = new HashMap();
+        char [] pat = pattern.toCharArray();
+        String [] stg = str.split(" ");
+
+        if(pat.length!= stg.length) return false;
+        for(int i = 0;i<pat.length;i++){
+        	if(hm.containsKey(pat[i])){
+        		if(!hm.get(pat[i]).equals(stg[i]))
+        			return false;   			
+        	}
+        	else{
+        		if(hm.containsValue(stg[i]))
+            		return false;
+            	hm.put(pat[i], stg[i]);
+        	}
+        }
+        return true;
+    }
+}
+  
+用hash map做比较简单

@@ -1,0 +1,14 @@
+public class NumArray {
+    private int[] numarray;
+    public NumArray(int[] nums) {
+        this.numarray = nums;
+    }
+
+    public int sumRange(int i, int j) {
+        int sum = 0;
+        for (int k = i;i<j+1;i++){
+            sum+=numarray[i];
+        }
+        return sum;
+    }
+}

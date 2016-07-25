@@ -1,0 +1,34 @@
+/**
+ * Definition for binary tree
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+public class Solution {
+    public List<List<Integer>> levelOrder(TreeNode root) {
+         List<List<Integer>> result = new ArrayList<>();
+         List<TreeNode> level = new ArrayList<>();
+         level.add(root);
+         while(true){
+             if (level.isEmpty() || level.get(0) == null){
+                 break;
+             }
+             List<TreeNode> nextLevel = new ArrayList<>();
+             List<Integer> currentLevel = new ArrayList<>();
+             for (TreeNode node : level){
+                 currentLevel.add(node.val);
+                 if (node.left != null) nextLevel.add(node.left);
+                 if (node.right != null) nextLevel.add(node.right);
+             }
+             result.add(currentLevel);
+             level = nextLevel;
+         }
+         return result;
+    }
+}
+
+用链表实现BFS ， 对于BFS和DFS应该做到信手拈来
+此题逻辑比较简单。用level链表存储当前层次的节点，用current level存储当前节点的val值，并且不断赋值给result，nextlevel链表存储的是下一层节点，只需要不停的让level转换到下一层即可。

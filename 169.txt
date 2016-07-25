@@ -1,0 +1,23 @@
+import java.util.*;
+public class Solution {
+    private int major;
+    public int majorityElement(int[] num) {
+        HashMap m = new HashMap();
+        for (int i = 0; i < num.length;i++){
+        	if(m.containsKey(num[i])){
+        		int value=(int)m.get(num[i])+1;
+        		m.put(num[i], value);
+        	}
+        	else
+        		m.put(num[i], 1);
+        }
+        for (int j = 0;j<num.length;j++){
+        	if((int)m.get(num[j])>num.length/2)
+        		major=num[j];
+        }
+        return major;
+    }
+}
+
+此题用hashmap解决。
+但是有更快的办法

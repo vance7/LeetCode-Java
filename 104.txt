@@ -1,0 +1,11 @@
+import java.math.*;
+public class Solution {	
+	public int maxDepth(TreeNode root){
+		if (root==null)
+			return 0;
+		else
+			return (1+Math.max(maxDepth(root.left), maxDepth(root.right)));
+	}
+}
+
+此题运用递归函数（分治算法），DFS遍历即可

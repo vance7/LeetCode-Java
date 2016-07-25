@@ -1,0 +1,26 @@
+public class Solution {
+    public boolean isValid(String s) {
+        if(s.length()%2==1||s.length()==0)return false;
+        char[] ca = s.toCharArray();
+        Stack<Character> match = new Stack<Character>();
+        for(int i = 0; i < s.length(); i ++){
+            if(ca[i]=='('||ca[i]=='{'||ca[i]=='['){
+                match.push(ca[i]);
+            }
+            else{
+                if(match.empty())return false;
+                else if(ca[i]==')'&&match.pop()!='(')return false;
+                else if(ca[i]=='}'&&match.pop()!='{')return false;
+                else if(ca[i]==']'&&match.pop()!='[')return false;
+            }
+        }
+        return match.empty();
+    }
+}
+
+1. 边界处理
+2. 扫描整个char数组
+3. （1）若是左括号，压栈
+    （2）不是左括号的情况下先判断栈是否空
+               不空的情况下对每个右括号进行判断处理。
+4. 返回栈是否为空，不空说明左括号剩余。

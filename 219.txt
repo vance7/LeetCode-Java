@@ -1,0 +1,13 @@
+public class Solution {
+    public boolean containsNearbyDuplicate(int[] nums, int k) {
+        if(nums.length==0||nums.length == 1||k==0) return false;
+        HashSet hs = new HashSet();
+        for (int i = 0;i<nums.length; i ++){
+            if (i>k)hs.remove(nums[i-k-1]);
+            if(!hs.add(nums[i])) return true;
+            hs.add(nums[i]);
+        }
+        return false;
+    }
+}
+当i < k的时候和CD1是一样的，当大于k的时候，我们只需要将当前set的第一个元素移除，只判断k范围内的值是否有相同的即可。

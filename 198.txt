@@ -1,0 +1,15 @@
+public class Solution {
+    public int rob(int[] nums) {
+        int [] value = new int[nums.length];
+        if (nums.length==0) return 0;
+        else if (nums.length == 1||nums.length==2) return nums[0];
+        else{
+            value[0]=nums[0];
+            value[1]=nums[0];
+            for(int i=2;i<nums.length;i++)value[i]=Math.max(value[i-1],value[i-2]+nums[i]);
+            return value[nums.length-1];
+        }
+    }
+}
+
+动态规划，比较简单，注意只有两个房子的时候盗贼会选择较大的一个，而不是第一个。。。

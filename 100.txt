@@ -1,0 +1,14 @@
+ifpublic class Solution {
+    public boolean isSameTree(TreeNode p, TreeNode q) {
+        if (p==null&&q==null)
+           return true;
+        if (p==null&&q!=null||p!=null&&q==null||p.val!=q.val)
+           return false;
+        return isSameTree(p.left,q.left) && isSameTree(p.right,q.right);
+    }
+}
+
+注意逻辑要清楚，总共三部分：
+1.都是空节点（java中null无法和其他值比较）
+2.一个空一个不空
+3.不空的时候数值的比较

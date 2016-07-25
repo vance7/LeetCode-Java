@@ -1,0 +1,10 @@
+public class Solution {
+    public int lengthOfLastWord(String s) {
+        s = s.trim();
+        int lastindex = s.trim().lastIndexOf(' ')+1;
+        return s.length()-lastindex;
+    }
+}
+
+trim()  去掉头尾空格
+lastIndexOf() 找到最后一个特殊字段的index

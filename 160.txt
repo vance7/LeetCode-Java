@@ -1,0 +1,59 @@
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode(int x) {
+ *         val = x;
+ *         next = null;
+ *     }
+ * }
+ */
+public class Solution {
+    public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
+        int a = 0,b =0;
+        ListNode heada = headA, headb = headB;
+        ListNode currenta = headA, currentb = headB;
+        while(heada!=null){
+        	a++;
+        	heada=heada.next;
+        }
+        while(headb!=null){
+        	b++;
+        	headb=headb.next;
+        }
+        if(a>=b){
+        	int c = a-b;
+        	for(;c>0;c--)currenta=currenta.next;
+        	for(;b>0;b--){
+        		if(currenta==currentb)break;
+        		currenta=currenta.next;
+        		currentb=currentb.next;
+        	}
+        }
+        else{
+        	int c = b-a;
+        	for(;c>0;c--)currentb=currentb.next;
+        	for(;a>0;a--){
+        		if(currenta==currentb)break;
+        		currenta=currenta.next;
+        		currentb=currentb.next;
+        	}
+        }
+        return currenta;
+    }
+}
+
+此题求两个链表的第一个公共节点，思路如下：
+假设两个一长一短的链表A和B，链表长度为a和b，长度差为（a-b）。
+两个链表的形状一定为Y型而不是X型，也就是说两个链表的最后一个节点一定一样。当A链表遍历过(a-b)个节点之后，长度和B一样，此时两个链表同时向后遍历，第一个相同的节点即为所求。时间复杂度为O(a)。如果我们采取暴力手段，每遍历一个A的点就遍历整个B时间复杂度将为O(ab)。
+此题为微软面试题。
+
+
+
+
+
+
+
+
+

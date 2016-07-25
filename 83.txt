@@ -1,0 +1,21 @@
+public class Solution {
+    public ListNode deleteDuplicates(ListNode head) {
+        ListNode list = head;
+
+         while(list != null) {
+             if (list.next == null) {
+                 break;
+             }
+             if (list.val == list.next.val) {
+                 list.next = list.next.next;
+             } else {
+                 list = list.next;
+             }
+         }
+         return head;
+    }
+}
+
+
+亮点在第二个if ，注意list作为保持节点是不需要变化的，所以list.next = list.next.next 
+另外要记得判断初始节点是否是空

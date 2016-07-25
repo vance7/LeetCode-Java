@@ -1,0 +1,15 @@
+import java.math.*;
+public class Solution {
+	public int transfer;
+	public int Compute(String input){
+		int len = input.length();
+		for(int i=0;i<len;i++){
+			transfer+=(input.charAt(i)-64)*Math.pow(26,(len-i-1));
+		}
+		return transfer;
+	}
+}
+
+1.math类库中幂函数是Math.pow（a,b）    a: 底数  b：指数
+2.String类库中取字符串每位字符的函数是charAt(i)  i值为字符串中对应的下标（0~n-1）
+3.熟记ASCII码

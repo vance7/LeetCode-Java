@@ -1,0 +1,17 @@
+public class Solution {
+    public void moveZeroes(int[] nums) {
+        if(nums.length ==0) return;
+        int insert = 0;
+        for(int num:nums){
+            if(num != 0){
+                nums[insert] = num;
+                insert++;
+            }
+        }
+        for(int i = insert;i<nums.length;i++){
+            nums[i] = 0;
+        }
+    }
+}
+
+总体思路：将非0提前，再把剩下的位置变为0。于是我们先用一个insert数值用来记录需要提前的位置，然后将所有非0提前，剩下的变为0

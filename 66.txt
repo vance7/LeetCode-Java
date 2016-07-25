@@ -1,0 +1,35 @@
+	public class Solution {
+    public int[] plusOne(int[] digits) {
+        int count = 0 ;
+        for (int i=digits.length-1;i>=0;i--){
+            if(digits[i]==9){
+                digits[i]=0;
+                count++;
+            }
+            else break;
+        }
+        if (count == digits.length){
+            int[] A = new int [digits.length+1];
+            A[0]=1;
+            for(int i = 1;i<A.length;i++){
+                A[i]=0;
+            }
+            return A;
+        }
+        else if(count == 0){
+            digits[digits.length-1]+=1;
+            return digits;
+        }
+        else{
+            digits[digits.length-1-count]+=1;
+            return digits;
+        }
+    }
+}
+
+哈哈哈哈 first time AC 
+搞清每种情况即可
+1.每位都是9
+2.没有9
+3.从后往前部分连续为9
+分别对应三种处理。

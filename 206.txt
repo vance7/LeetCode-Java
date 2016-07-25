@@ -1,0 +1,41 @@
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode(int x) { val = x; }
+ * }
+ */
+public class Solution {
+    public ListNode reverseList(ListNode head) {
+        if(head == null)return null;
+        else if (head.next == null) return head;
+        else{
+            ListNode pre = head;
+            ListNode cur = head.next;
+            ListNode next;
+            while(cur!=null){
+                next = cur.next;
+                cur.next = pre;
+                pre = cur;
+                cur = next;
+            }
+            head.next = null;
+            head = pre;
+            return head;
+        }
+    }
+}
+解法一：循环法。定义三个node，分别为pre cur 和next。分清变化过程即可（next = cur.next; cur.next = pre; pre = cur;cur = next;）最后返回头结点
+
+public class Solution {
+    public ListNode reverseList(ListNode head) {
+        if (head == null || head.next == null)return head;
+        ListNode reverseNode = reverseList(head.next);
+        head.next.next = head;
+        head.next = null;
+        return reverseNode;
+    }
+}
+
+解法二：递归法

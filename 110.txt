@@ -1,0 +1,28 @@
+/**
+ * Definition for binary tree
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+public class Solution {
+    public boolean isBalanced(TreeNode root) {
+        if(root==null)return true;
+        if(root.left==null&&root.right==null)return true;
+        if(Math.abs(countDepth(root.left)-countDepth(root.right))>1)return false;
+        return isBalanced(root.left)&&isBalanced(root.right);
+    }
+    public int countDepth(TreeNode root){
+        if(root==null)return 0;
+        if(root.left==null&&root.right==null)return 1;
+        return 1+Math.max(countDepth(root.left),countDepth(root.right));
+    }
+}
+
+
+思路：首先考虑一个节点是否平衡要分为左节点是否平衡以及右节点是否平衡（考虑到该节点是否为null以及左右节点是否为null）
+其次考虑要判断单一节点是否平衡就要判断左右节点的深度，做绝对值运算是否大于1（考虑到考虑到该节点是否为null以及左右节点是否为null）。
+
+用分治法（递归）比较耗费时间，我们可以选择运用DP法以空间换取时间的做法。
