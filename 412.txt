@@ -1,0 +1,19 @@
+public class Solution {
+    public List<String> fizzBuzz(int n) {
+        List<String> result = new ArrayList<String>();
+        if (n < 0) return null;
+        else if (n == 0){
+            result.add(Integer.toString(n));
+            return result;
+        }
+        else{
+            for(int i = 1; i < n+1 ; i++){
+                if(i%3==0&&i%5!=0) result.add("Fizz");
+                else if (i%3!=0&&i%5==0) result.add("Buzz");
+                else if (i%3==0&&i%5==0) result.add("FizzBuzz");
+                else result.add(Integer.toString(i));
+            }
+        }
+        return result;
+    }
+}
