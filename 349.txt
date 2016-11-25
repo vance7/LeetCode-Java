@@ -1,0 +1,25 @@
+public class Solution {
+    public int[] intersection(int[] nums1, int[] nums2) {
+        if(nums1==null||nums2==null)
+            return null;
+        Arrays.sort(nums1);
+        Arrays.sort(nums2);
+        HashSet <Integer> hs = new HashSet<>();
+        for(int i =0, j =0; i < nums1.length&&j<nums2.length; ){
+            if(nums1[i]<nums2[j])
+                i++;
+            else if(nums1[i]>nums2[j])
+                j++;
+            else{
+                hs.add(nums1[i]);
+                i++;
+                j++;
+            }
+        }
+        int [] result = new int [hs.size()];
+        int k = 0;
+        for(int i:hs)
+            result[k++] = i;
+        return result;
+    }
+}

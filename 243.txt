@@ -1,0 +1,45 @@
+public class Solution {
+    public int shortestDistance(String[] words, String word1, String word2) {
+        return calculate(findIndex(words,word1),findIndex(words,word2));
+    }
+    
+    private int [] findIndex (String[] words, String word){
+        List<Integer> list = new LinkedList<>();
+        for(int i = 0; i < words.length; i ++){
+            if(words[i].equals(word))
+                list.add(i);
+        }
+        int [] indexs = new int [list.size()];
+        for(int i = 0; i < list.size(); i ++)
+            indexs[i] = list.get(i);
+        return indexs;
+    }
+    
+    private int calculate (int [] array1, int [] array2){
+        int dis = Integer.MAX_VALUE;
+        for(int i = 0; i < array1.length; i ++){
+            for(int j = 0; j < array2.length; j ++){
+                dis = Math.abs(array1[i]-array2[j])<dis?Math.abs(array1[i]-array2[j]):dis;
+            }
+        }
+        return dis;
+    }
+}
+
+/////////////////
+public int shortestDistance(String[] words, String word1, String word2) {
+    int p1 = -1, p2 = -1, min = Integer.MAX_VALUE;
+    
+    for (int i = 0; i < words.length; i++) {
+        if (words[i].equals(word1)) 
+            p1 = i;
+
+        if (words[i].equals(word2)) 
+            p2 = i;
+            
+        if (p1 != -1 && p2 != -1)
+            min = Math.min(min, Math.abs(p1 - p2));
+    }
+    
+    return min;
+}
