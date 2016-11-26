@@ -1,0 +1,9 @@
+public class Solution {
+    public int minMoves(int[] nums) {
+        int res = 0, min =Integer.MAX_VALUE,sum =0;
+        for(int i : nums)min = Math.min(min,i);
+        for(int i : nums)sum +=i;
+        res = sum-min*nums.length;
+        return res;
+    }
+}
