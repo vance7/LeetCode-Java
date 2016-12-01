@@ -1,0 +1,19 @@
+public class Solution {
+    public int firstUniqChar(String s) {
+        if(s.length()==0)
+            return -1;
+        if(s.length()==1)
+            return 0;
+        int [] array = new int[26];
+        int min = Integer.MAX_VALUE;
+        for(int i = 0; i < s.length(); i ++)
+            array[s.charAt(i)-'a']++;
+        for(int i = 0; i < array.length; i ++){
+            if(array[i]==1){
+                String piece = Character.toString((char)(i+97));
+                min = min<s.indexOf(piece)?min:s.indexOf(piece);
+            }
+        }
+        return min==Integer.MAX_VALUE?-1:min;
+    }
+}

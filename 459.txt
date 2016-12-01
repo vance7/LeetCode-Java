@@ -1,0 +1,17 @@
+public class Solution {
+    public boolean repeatedSubstringPattern(String str) {
+        for(int i = 1; i < str.length()/2+1; i ++){
+            if(str.length()%i==0){
+                String curr = str.substring(0,i);
+                if(hasOnlyStr(curr,str))
+                    return true;
+            }
+        }
+        return false;
+    }
+    
+    private boolean hasOnlyStr(String piece, String str){
+        String [] array = str.split(piece);
+        return array.length==0;
+    }
+}

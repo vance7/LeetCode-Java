@@ -1,0 +1,22 @@
+public class Solution {
+    public String addBinary(String a, String b) {
+        if(a.length()==0||b.length()==0)
+            return a.length()<b.length()?a:b;
+        int i = a.length()-1, j = b.length()-1, count = 0;
+        StringBuilder sb = new StringBuilder("");
+        while(i>=0||j>=0||count!=0){
+            int val = count;
+            if(i>=0){
+                val += Integer.parseInt(a.substring(i,i+1));
+                i--;
+            }
+            if(j>=0){
+                val += Integer.parseInt(b.substring(j,j+1));
+                j--;
+            }
+            sb.append((char)(val%2+48));
+            count = val/2;
+        }
+        return sb.reverse().toString();
+    }
+}

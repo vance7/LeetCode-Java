@@ -1,0 +1,24 @@
+public class Solution {
+    public String countAndSay(int n) {
+        if(n == 1)
+            return "1";
+        String prev = countAndSay(n-1);
+        StringBuilder sb = new StringBuilder();
+        int count = 1;
+        char prevChar = prev.charAt(0);
+        for(int i = 1; i < prev.length(); i ++){
+            char currChar = prev.charAt(i);
+            if(prevChar == currChar)
+                count++;
+            else{
+                sb.append(count);
+                sb.append(prevChar);
+                count = 1;
+            }
+            prevChar = currChar;
+        }
+        sb.append(count);
+        sb.append(prevChar);
+        return sb.toString();
+    }
+}
