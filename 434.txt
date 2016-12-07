@@ -1,0 +1,5 @@
+public class Solution {
+    public int countSegments(String s) {
+        return ("x " + s).split(" +").length - 1;
+    }
+}
