@@ -1,0 +1,27 @@
+public class Solution {
+    public List<List<String>> groupStrings(String[] strings) {
+        List<List<String>> result = new LinkedList<>();
+        HashMap<String, List<String>> hm = new HashMap<>();
+        if(strings == null||strings.length == 0)
+            return result;
+        for(String str : strings){
+            int dis = str.charAt(0)-'a';
+            StringBuilder sb = new StringBuilder("");
+            for(int i = 0; i < str.length(); i ++){
+                char c = (char)(str.charAt(i)-dis);
+                if(c<'a')
+                    c+=26;
+                sb.append(c);
+            }
+            if(!hm.containsKey(sb.toString())){
+                List<String> list = new LinkedList<>();
+                hm.put(sb.toString(),list);
+            }
+            hm.get(sb.toString()).add(str);
+        }
+        for(String key : hm.keySet()){
+            result.add(hm.get(key));
+        }
+        return result;
+    }
+}

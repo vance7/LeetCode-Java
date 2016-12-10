@@ -1,0 +1,23 @@
+public class Solution {
+	public static int findNthDigit(int n) {
+		if (n < 10)
+			return n;
+		int length = 1;
+		int count = 9;
+		while (n > length * count) {
+			n -= length * count;
+			length++;
+			count *= 10;
+		}
+		if (n % length != 0) {
+			int number = n / length + (int) (Math.pow(10, length - 1));
+			int digit = n % length;
+			return Integer.toString(number).charAt(digit - 1) - '0';
+		}
+		else{
+			int number = n / length + (int) (Math.pow(10, length - 1)) -1;
+			String s = Integer.toString(number);
+			return s.charAt(s.length()-1)-'0';
+		}
+	}
+}
