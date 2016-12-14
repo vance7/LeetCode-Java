@@ -17,3 +17,22 @@ public class Solution {
         return result[m-1][n-1];
     }
 }
+////////
+排列组合方法
+permutation and combination 
+
+C(n-1)/(m+n-2) or C(m-1)/(m+n-2) 
+
+public class Solution {
+    public int uniquePaths(int m, int n) {
+        if(m==0||n==0)
+            return 1;
+        int steps = m+n-2;
+        int goRight = n-1;
+        long result = 1;
+        for(int i = 1; i <= goRight ; i ++){
+            result = result * (steps-goRight+i)/i;
+        }
+        return (int)result;
+    }
+}
