@@ -3,9 +3,9 @@ public class Solution {
         int res = 0;
         HashMap<Integer,Integer> hm = new HashMap<>();
         for(int i = 0; i < points.length; i ++){
-            for(int j = 0; j < points.length; j ++){
-                if(i==j)
-                    continue;
+            for(int j = 0; j < points.length; j ++){   //我们在这里让第i个数充当i点，与其余点比较
+                if(i==j)			       //有val个点与其距离相同的时候，排列组合为 
+                    continue;			       //(val-1)*val的意思：val个点选两个
                 int dis = disOfPoints(points[i],points[j]);
                 hm.put(dis, hm.getOrDefault(dis,0)+1);
             }
