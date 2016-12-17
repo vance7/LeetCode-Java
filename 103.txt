@@ -1,0 +1,103 @@
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+public class Solution {
+    public List<List<Integer>> zigzagLevelOrder(TreeNode root) {
+        Queue<TreeNode> queue = new LinkedList<>();
+        List<List<Integer>> result = new LinkedList<>();
+        if(root == null)
+            return result;
+        int currLevel = 1, nextLevel = 0, leftOrRight = 0;
+        List<Integer> row = new LinkedList<>();
+        TreeNode curr = root;
+        queue.add(curr);
+        while(!queue.isEmpty()){
+            curr = queue.remove();
+            row.add(curr.val);
+            currLevel--;
+            if(curr.left!=null){
+                nextLevel++;
+                queue.add(curr.left);
+            }
+            if(curr.right!=null){
+                nextLevel++;
+                queue.add(curr.right);
+            }
+			if (currLevel == 0) {
+				currLevel = nextLevel;
+				nextLevel = 0;
+				if (leftOrRight == 0) {
+					result.add(row);
+					leftOrRight = 1;
+				} else {
+					helper(row);
+					result.add(row);
+					leftOrRight = 0;
+				}
+				row = new LinkedList<Integer>();
+			}
+        }
+        return result;
+    }
+    public void helper(List<Integer> row){
+        Stack<Integer> stack = new Stack<>();
+        for(int i : row)
+            stack.push(i);
+        row.clear();
+        while(!stack.isEmpty()){
+            row.add(stack.pop());
+        }
+    }
+}
+///////////
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+public class Solution {
+    public List<List<Integer>> zigzagLevelOrder(TreeNode root) {
+        Queue<TreeNode> queue = new LinkedList<>();
+        List<List<Integer>> result = new LinkedList<>();
+        if(root == null)
+            return result;
+        int currLevel = 1, nextLevel = 0, leftOrRight = 0;
+        List<Integer> row = new LinkedList<>();
+        TreeNode curr = root;
+        queue.add(curr);
+        while(!queue.isEmpty()){
+            curr = queue.remove();
+            if(leftOrRight == 0)
+                row.add(curr.val);
+            else
+                row.add(0,curr.val);
+            currLevel--;
+            if(curr.left!=null){
+                nextLevel++;
+                queue.add(curr.left);
+            }
+            if(curr.right!=null){
+                nextLevel++;
+                queue.add(curr.right);
+            }
+			if (currLevel == 0) {
+				currLevel = nextLevel;
+				nextLevel = 0;
+				result.add(row);
+				leftOrRight = leftOrRight==0?1:0;
+				row = new LinkedList<Integer>();
+			}
+        }
+        return result;
+    }
+}
