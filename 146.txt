@@ -1,0 +1,91 @@
+public class LRUCache {
+    //双向链表节点
+    class DLinkedNode{
+        int key;
+        int value;
+        DLinkedNode pre;
+        DLinkedNode post;
+    }
+    //将节点放置在head后（LRU基本原理：新访问的放在最前面）
+    private void addNode (DLinkedNode node){
+        node.pre = head;
+        node.post = head.post;
+        
+        head.post.pre = node;
+        head.post = node;
+    }
+    
+    //将当前节点移除
+    private void removeNode (DLinkedNode node){
+	    DLinkedNode pre = node.pre;
+	    DLinkedNode post = node.post;
+	
+	    pre.post = post;
+	    post.pre = pre;
+    }
+    //将某节点从链表中移除，加入到head后（LRU基本原理：访问一个已存在节点时要把当前节点移除，并将该节点加入到前端）
+    private void moveToHead(DLinkedNode node){
+        this.removeNode(node);
+        this.addNode(node);
+    }
+    //将最后一个节点（tail节点的前一个节点）移除，并返回该节点
+    private DLinkedNode popTail(){
+        DLinkedNode res = tail.pre;
+        this.removeNode(res);
+        return res;
+    }
+    //LRU 基本实现
+    private HashMap<Integer, DLinkedNode> cache;
+    private int capacity;
+    private int currCount;
+    private DLinkedNode head,tail;
+    
+    //构造函数，要定义cache，容量，头、尾，当前链表的数量
+    public LRUCache(int capacity) {
+        this.cache = new HashMap<>();
+        this.capacity = capacity;
+        this.currCount = 0;
+        
+        this.head = new DLinkedNode();
+        this.tail = new DLinkedNode();
+        
+        head.pre = null;
+        head.post = tail;
+        
+        tail.pre = head;
+        tail.post = null;
+    }
+    
+    //get函数，获取匹配key值的node的value值，不存在则返回-1，存在要将当前节点设为最新访问的节点
+    public int get(int key) {
+        DLinkedNode curr = cache.get(key);
+        if(curr == null)
+            return -1;
+        this.moveToHead(curr);
+        return curr.value;
+    }
+    
+    //set函数，如果当前节点存在，则重新设置value值，并且设为最新访问节点；如果不存在，则插入该节点。
+    //要同步的在cache中添加和修改。
+    //要注意需要考虑cache容量问题，超过容量要移除最后一个节点，并在cache中移除对应的键值对。
+    public void set(int key, int value) {
+        DLinkedNode curr = cache.get(key);
+        if(curr == null){
+            DLinkedNode node = new DLinkedNode();
+            node.key = key;
+            node.value = value;
+            
+            this.cache.put(key,node);
+            this.addNode(node);
+            currCount++;
+            if(currCount>capacity){
+                DLinkedNode res = this.popTail();
+                this.cache.remove(res.key);
+                currCount--;
+            }
+        }else{
+                curr.value = value;
+                this.moveToHead(curr);
+        }
+    }
+}

@@ -1,0 +1,107 @@
+/**
+ * Definition for singly-linked list with a random pointer.
+ * class RandomListNode {
+ *     int label;
+ *     RandomListNode next, random;
+ *     RandomListNode(int x) { this.label = x; }
+ * };
+ */
+public class Solution {
+    public RandomListNode copyRandomList(RandomListNode head) {
+  		if(head == null)
+		    return null;
+		if (head.next == null){
+		    RandomListNode curr = new RandomListNode(head.label);
+		    if(head.random!=null)
+		        curr.random = curr;
+		    return curr;
+		}
+		RandomListNode fakeHead = head;
+		RandomListNode next = head.next;
+		// 在原链表每个节点后复制一个节点，值等于前一个
+		while (next != null) {
+			RandomListNode curr = new RandomListNode(fakeHead.label);
+			fakeHead.next = curr;
+			curr.next = next;
+			fakeHead = next;
+			next = fakeHead.next;
+		}
+		fakeHead.next = new RandomListNode(fakeHead.label);
+		fakeHead = head;
+		// 将random指针深复制给每个复制的节点
+		while (fakeHead != null) {
+			if (fakeHead.random != null) {
+				fakeHead.next.random = fakeHead.random.next;
+			}
+			fakeHead = fakeHead.next.next;
+		}
+		fakeHead = head;
+		RandomListNode result = head.next;
+		// 构建新的链表，同时将原链表还原
+		while (fakeHead.next.next!=null) {
+			RandomListNode fakeNext = fakeHead.next;
+			fakeHead.next = fakeNext.next;
+			fakeNext.next = fakeNext.next.next;
+			fakeHead = fakeHead.next;
+		}
+		fakeHead.next = null;
+		return result;      
+    }
+}
+///////////////
+
+思路是一样的，写的更易读一些，边界条件思考清楚
+/**
+ * Definition for singly-linked list with a random pointer.
+ * class RandomListNode {
+ *     int label;
+ *     RandomListNode next, random;
+ *     RandomListNode(int x) { this.label = x; }
+ * };
+ */
+public class Solution {
+	public static RandomListNode copyRandomList(RandomListNode head) {
+		RandomListNode iter = head, next;
+
+		// First round: make copy of each node,
+		// and link them together side-by-side in a single list.
+		while (iter != null) {
+			next = iter.next;
+
+			RandomListNode copy = new RandomListNode(iter.label);
+			iter.next = copy;
+			copy.next = next;
+
+			iter = next;
+		}
+
+		// Second round: assign random pointers for the copy nodes.
+		iter = head;
+		while (iter != null) {
+			if (iter.random != null) {
+				iter.next.random = iter.random.next;
+			}
+			iter = iter.next.next;
+		}
+
+		// Third round: restore the original list, and extract the copy list.
+		iter = head;
+		RandomListNode pseudoHead = new RandomListNode(0);
+		RandomListNode copy, copyIter = pseudoHead;
+
+		while (iter != null) {
+			next = iter.next.next;
+
+			// extract the copy
+			copy = iter.next;
+			copyIter.next = copy;
+			copyIter = copy;
+
+			// restore the original list
+			iter.next = next;
+
+			iter = next;
+		}
+		return pseudoHead.next;
+	}
+}
