@@ -1,0 +1,41 @@
+public class Solution {
+    public int[] findOrder(int numCourses, int[][] prerequisites) {
+        if(numCourses <=0||prerequisites == null)
+            return new int[0];
+        int [] inDegree = new int[numCourses];
+        int [] res = new int[numCourses];
+        int ori = numCourses-1;
+        Queue<Integer> ZeroIncomingDegree = new LinkedList<>();
+        LinkedList [] courses = new LinkedList [numCourses];
+        int count = 0;
+        for(int i = 0; i < courses.length; i++){
+            courses[i] = new LinkedList<Integer>();
+        }
+        for(int i = 0; i < prerequisites.length;i++){
+            inDegree[prerequisites[i][1]]++;
+            courses[prerequisites[i][0]].add(prerequisites[i][1]);
+        }
+        for(int i = 0; i < inDegree.length; i++){
+            if(inDegree[i] == 0){
+                ZeroIncomingDegree.add(i);
+                count ++;
+            }
+        }
+        while(!ZeroIncomingDegree.isEmpty()){
+            int course = ZeroIncomingDegree.remove();
+            res[ori--] = course;
+            for(int i = 0; i < courses[course].size(); i++){
+                if(--inDegree[(int)courses[course].get(i)] == 0){
+                    ZeroIncomingDegree.add((int)courses[course].get(i));
+                    count++;
+                }
+            }
+        }
+        if(count == numCourses)
+            return res;
+        else
+            return new int[0];
+    }
+}
+
+//////
