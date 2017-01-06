@@ -34,3 +34,46 @@ class MyQueue {
 }
 
  用两个栈实现queue
+//////
+class MyQueue {
+    Stack<Integer> newestStack;
+    Stack<Integer> oldestStack;
+    
+    public MyQueue(){
+        newestStack = new Stack<>();
+        oldestStack = new Stack<>();
+    }
+    
+    public int getSize(){
+        return newestStack.size()+oldestStack.size();
+    }
+    // Push element x to the back of queue.
+    public void push(int x) {
+        newestStack.push(x);
+    }
+
+    // Removes the element from in front of queue.
+    public void pop() {
+        if(oldestStack.size()==0){
+            while(!newestStack.isEmpty()){
+                oldestStack.push(newestStack.pop());
+            }
+        }
+        oldestStack.pop();
+    }
+
+    // Get the front element.
+    public int peek() {
+        if(oldestStack.size()==0){
+            while(!newestStack.isEmpty()){
+                oldestStack.push(newestStack.pop());
+            }
+        }
+        return oldestStack.peek();
+    }
+
+    // Return whether the queue is empty.
+    public boolean empty() {
+        return this.getSize()==0; 
+    }
+}

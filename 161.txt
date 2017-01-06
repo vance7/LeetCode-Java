@@ -1,0 +1,57 @@
+public class Solution {
+    public boolean isOneEditDistance(String s, String t) {
+        if(s.length()==0&&t.length()==0)
+            return false;
+        if(s.length() == t.length()){
+            return checkReplace(s,t);
+        }else if(s.length()+1 == t.length()){
+            return checkInsert(s,t);
+        }else if(s.length()-1 == t.length()){
+            return checkInsert(t,s);
+        }else
+            return false;
+    }
+    public boolean checkReplace(String s1, String s2){
+        boolean findDifference = false;
+        for(int i = 0; i < s1.length(); i++){
+            if(s1.charAt(i)!=s2.charAt(i)){
+                if(findDifference)
+                    return false;
+                else
+                    findDifference = true;
+            }
+        }
+        return findDifference;
+    }
+    
+    //whether we can insert a char into s1 to make s2
+    public boolean checkInsert(String s1, String s2){
+        int index1 = 0, index2 = 0;
+        while(index1<s1.length()&&index2<s2.length()){
+            if(s1.charAt(index1)!=s2.charAt(index2)){
+                if(index1!=index2)
+                    return false;
+                index2++;
+            }else{
+                index1++;
+                index2++;
+            }
+        }
+        return true;
+    }
+}
+/////////////////////
+public boolean isOneEditDistance(String s, String t) {
+    for (int i = 0; i < Math.min(s.length(), t.length()); i++) { 
+    	if (s.charAt(i) != t.charAt(i)) {
+    		if (s.length() == t.length()) // s has the same length as t, so the only possibility is replacing one char in s and t
+    			return s.substring(i + 1).equals(t.substring(i + 1));
+			else if (s.length() < t.length()) // t is longer than s, so the only possibility is deleting one char from t
+				return s.substring(i).equals(t.substring(i + 1));	        	
+			else // s is longer than t, so the only possibility is deleting one char from s
+				return t.substring(i).equals(s.substring(i + 1));
+    	}
+    }       
+    //All previous chars are the same, the only possibility is deleting the end char in the longer one of s and t 
+    return Math.abs(s.length() - t.length()) == 1;        
+}
