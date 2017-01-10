@@ -24,3 +24,41 @@ public class Solution {
         return res;
     }
 }
+//////////////
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+public class Solution {
+    public int pathSum(TreeNode root, int sum) {
+        if(root == null)
+            return 0;
+        HashMap<Integer, Integer> hm = new HashMap<>();
+        return countPaths(root,hm, sum, 0);
+    }
+    
+    public int countPaths(TreeNode root, HashMap<Integer,Integer> hm, int targetSum, int runningSum){
+        if(root == null)
+            return 0;
+        runningSum+=root.val;
+        int sum = runningSum - targetSum;
+        int totalPaths = hm.getOrDefault(sum,0);
+        if(runningSum == targetSum)
+            totalPaths++;
+        hashTableIncrement(hm, runningSum, 1);
+        totalPaths+=countPaths(root.left, hm, targetSum, runningSum);
+        totalPaths+=countPaths(root.right,hm, targetSum, runningSum);
+        hashTableIncrement(hm,runningSum, -1);
+        return totalPaths;
+    }
+    
+    public void hashTableIncrement(HashMap<Integer,Integer> hm, int runningSum, int increment){
+        int value = hm.getOrDefault(runningSum,0)+increment;
+        hm.put(runningSum,value);
+    }
+}

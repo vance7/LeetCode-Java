@@ -1,0 +1,49 @@
+public class Solution {
+    public List<List<Integer>> subsetsWithDup(int[] nums) {
+        List<List<Integer>> res = new ArrayList<>();
+		if (nums == null || nums.length == 0)
+			return res;
+		Arrays.sort(nums);
+		HashSet<List<Integer>> hs = new HashSet<>();
+		return buildSetsWithDup(nums, 0,hs);
+    }
+    public static List<List<Integer>> buildSetsWithDup(int[] nums, int index,HashSet<List<Integer>> hs) {
+		List<List<Integer>> subsets;
+		if (nums.length == index) {
+			subsets = new ArrayList<>();
+			subsets.add(new ArrayList<Integer>());
+			return subsets;
+		}
+		int value = nums[index];
+		subsets = buildSetsWithDup(nums, index + 1,hs);
+		ArrayList<ArrayList<Integer>> moresets = new ArrayList<>();
+		for (List<Integer> sub : subsets) {
+			ArrayList<Integer> newset = new ArrayList<Integer>();
+			newset.addAll(sub);
+			newset.add(value);
+			if(hs.contains(newset))
+				continue;
+			hs.add(newset);
+			moresets.add(newset);
+		}
+		subsets.addAll(moresets);
+		return subsets;
+	}
+}
+//////////
+public List<List<Integer>> subsetsWithDup(int[] nums) {
+    List<List<Integer>> list = new ArrayList<>();
+    Arrays.sort(nums);
+    backtrack(list, new ArrayList<>(), nums, 0);
+    return list;
+}
+
+private void backtrack(List<List<Integer>> list, List<Integer> tempList, int [] nums, int start){
+    list.add(new ArrayList<>(tempList));
+    for(int i = start; i < nums.length; i++){
+        if(i > start && nums[i] == nums[i-1]) continue; // skip duplicates
+        tempList.add(nums[i]);
+        backtrack(list, tempList, nums, i + 1);
+        tempList.remove(tempList.size() - 1);
+    }
+} 

@@ -1,0 +1,33 @@
+String  转换为 int
+
+int a = Integer.parseInt(str);
+
+String 转换为char 数组
+
+char [] array = String.toCharArray();
+
+int 转换为 String
+
+1.) String s = String.valueOf(i);
+2.) String s = Integer.toString(i);
+3.) String s = "" + i;
+
+int 转换为 char
+
+1）int a = 48;
+      char c = (char) a; //   c = '0' 打印ASCII码
+2）int a = 4
+      char c = (char)(a+48)// c = 4
+
+
+char 转换为int
+
+char c= 'a';
+int a = c-'a'  ; // a = 0
+
+char 转换为string
+
+1) Character.toString(char);
+2) String s = ""+'c';
+3) String.valueOf(char);
+
